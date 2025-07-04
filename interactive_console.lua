@@ -30,7 +30,11 @@ function console_menu.all_handlers.en_funcs()
     print"[5|OwO]\t\t OwO accent"
     print"[6|zalgo]\t zalgo"
     print"[7|lizard]\t lizard accent"
-    print"[8|stutter]\t stutter"
+    print"[8|stutter]\t light stutter"
+    print"[9|mildStutter]\t mild stutter"
+    print"[10|severeStutter]\t severe stutter"
+    print"[11|extremeStutter]\t extreme stutter"
+    print"[12|insaneStutter]\t insane stutter"
     print"[<] Back"
     io.write("Function: ")
 end
@@ -174,10 +178,42 @@ function console_menu.utils.mix_lizardAccent()
     end)
 end
 
-function console_menu.utils.en_stutter()
+function console_menu.utils.en_lightStutter()
     console_menu.add_handler(console_menu.all_handlers.require_input, function(input)
         if input == "<" then return input end
-        print((RPstuff.special_transform_text_funcs.en.stutter(input, 0.5, 0.1, 0.3, 0.2)))
+        print((RPstuff.special_transform_text_funcs.en.stutter(input, 0.3, 0, 0, 0)))
+        return ""
+    end)
+end
+
+function console_menu.utils.en_mildStutter()
+    console_menu.add_handler(console_menu.all_handlers.require_input, function(input)
+        if input == "<" then return input end
+        print((RPstuff.special_transform_text_funcs.en.stutter(input, 0.5, 0, 0, 0.2)))
+        return ""
+    end)
+end
+
+function console_menu.utils.en_severeStutter()
+    console_menu.add_handler(console_menu.all_handlers.require_input, function(input)
+        if input == "<" then return input end
+        print((RPstuff.special_transform_text_funcs.en.stutter(input, 0.6, 0.0, 0.2, 0.3)))
+        return ""
+    end)
+end
+
+function console_menu.utils.en_extremeStutter()
+    console_menu.add_handler(console_menu.all_handlers.require_input, function(input)
+        if input == "<" then return input end
+        print((RPstuff.special_transform_text_funcs.en.stutter(input, 0.7, 0, 0.3, 0.2)))
+        return ""
+    end)
+end
+
+function console_menu.utils.en_insaneStutter()
+    console_menu.add_handler(console_menu.all_handlers.require_input, function(input)
+        if input == "<" then return input end
+        print((RPstuff.special_transform_text_funcs.en.stutter(input, 0.8, 0.3, 0.3, 0.2)))
         return ""
     end)
 end
@@ -265,14 +301,18 @@ do
     add_choice("init", {"2", "ru"},  utils.ru_language)
     add_choice("init", {"3", "mix"}, utils.mix_language)
 
-    add_choice("en_funcs", {"1", "bark"}, utils.en_bark)
-    add_choice("en_funcs", {"2", "extremeGag"}, utils.en_extremeGag)
-    add_choice("en_funcs", {"3", "severeGag"},  utils.en_severeGag)
-    add_choice("en_funcs", {"4", "looseGag"},   utils.en_looseGag)
-    add_choice("en_funcs", {"5", "OwO"}, utils.en_OwOAccent)
-    add_choice("en_funcs", {"6", "zalgo"},   utils.zalgo)
-    add_choice("en_funcs", {"7", "lizard"},  utils.en_lizardAccent)
-    add_choice("en_funcs", {"8", "stutter"}, utils.en_stutter)
+    add_choice("en_funcs", {"1",  "bark"}, utils.en_bark)
+    add_choice("en_funcs", {"2",  "extremeGag"}, utils.en_extremeGag)
+    add_choice("en_funcs", {"3",  "severeGag"},  utils.en_severeGag)
+    add_choice("en_funcs", {"4",  "looseGag"},   utils.en_looseGag)
+    add_choice("en_funcs", {"5",  "OwO"}, utils.en_OwOAccent)
+    add_choice("en_funcs", {"6",  "zalgo"},   utils.zalgo)
+    add_choice("en_funcs", {"7",  "lizard"},  utils.en_lizardAccent)
+    add_choice("en_funcs", {"8",  "stutter"}, utils.en_lightStutter)
+    add_choice("en_funcs", {"9",  "mildStutter"},      utils.en_mildStutter)
+    add_choice("en_funcs", {"10", "severeStutter"},    utils.en_severeStutter)
+    add_choice("en_funcs", {"11", "extremeStutter"},   utils.en_extremeStutter)
+    add_choice("en_funcs", {"12", "en_insaneStutter"}, utils.en_insaneStutter)
 
     add_choice("ru_funcs", {"1", "bark"}, utils.ru_bark)
     add_choice("ru_funcs", {"2", "extremeGag"}, utils.ru_extremeGag)
