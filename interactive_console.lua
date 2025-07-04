@@ -48,7 +48,7 @@ function console_menu.all_handlers.ru_funcs()
     print"[4|looseGag]\t loose gag"
     print"[5|OwO]\t OwO акцент"
     print"[6|zalgo]\t zalgo"
-    print"[7|lizard]\t аккцент ящера"
+    print"[7|lizard]\t акцент ящера"
     print"[<] Обратно"
     io.write("Функция: ")
 end
