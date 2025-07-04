@@ -3,67 +3,36 @@ local RPstuff = require("RPstuff")
 
 
 function console_menu.all_handlers.require_input()
-    console_menu.choices = console_menu.all_choices.none
+    console_menu.choices = nil
     io.write("Input: ")
 end
 
 function console_menu.all_handlers.require_ru_input()
-    console_menu.choices = console_menu.all_choices.none
+    console_menu.choices = nil
     io.write("Input: ")
 end
 
 function console_menu.all_handlers.init()
     console_menu.choices = console_menu.all_choices.init
-    print"[1] En"
-    print"[2] Ru"
-    print"[3] Mix"
+    console_menu.print_choice_menu("init")
     io.write("Language: ")
 end
 
--- TODO: REFACTOR!
 function console_menu.all_handlers.en_funcs()
     console_menu.choices = console_menu.all_choices.en_funcs
-    print"[1|bark]\t Bark accent"
-    print"[2|extremeGag]\t extreme gag"
-    print"[3|severeGag]\t severe gag"
-    print"[4|looseGag]\t loose gag"
-    print"[5|OwO]\t\t OwO accent"
-    print"[6|zalgo]\t zalgo"
-    print"[7|lizard]\t lizard accent"
-    print"[8|stutter]\t light stutter"
-    print"[9|mildStutter]\t mild stutter"
-    print"[10|severeStutter]\t severe stutter"
-    print"[11|extremeStutter]\t extreme stutter"
-    print"[12|insaneStutter]\t insane stutter"
-    print"[<] Back"
+    console_menu.print_choice_menu("en_funcs")
     io.write("Function: ")
 end
 
--- TODO: REFACTOR!
 function console_menu.all_handlers.ru_funcs()
     console_menu.choices = console_menu.all_choices.ru_funcs
-    print"[1|bark]\t лайcкий акцент"
-    print"[2|extremeGag]\t extreme gag"
-    print"[3|severeGag]\t severe gag"
-    print"[4|looseGag]\t loose gag"
-    print"[5|OwO]\t OwO акцент"
-    print"[6|zalgo]\t zalgo"
-    print"[7|lizard]\t акцент ящера"
-    print"[<] Обратно"
+    console_menu.print_choice_menu("ru_funcs")
     io.write("Функция: ")
 end
 
--- TODO: REFACTOR!
 function console_menu.all_handlers.mix_funcs()
     console_menu.choices = console_menu.all_choices.mix_funcs
-    print"[1|bark]\t bark accent"
-    print"[2|extremeGag]\t extreme gag"
-    print"[3|severeGag]\t severe gag"
-    print"[4|looseGag]\t loose gag"
-    print"[5|OwO]\t OwO accent"
-    print"[6|zalgo]\t zalgo"
-    print"[7|lizard]\t lizard accent"
-    print"[<] Back"
+    console_menu.print_choice_menu("mix_funcs")
     io.write("Function: ")
 end
 
@@ -287,7 +256,6 @@ end
 
 
 console_menu.all_choices = {
-    none = {},
     init = {},
     en_funcs = {},
     ru_funcs = {},
@@ -297,38 +265,38 @@ console_menu.all_choices = {
 do
     local utils = console_menu.utils
     local add_choice = console_menu.add_choice
-    add_choice("init", {"1", "en"},  utils.en_language)
-    add_choice("init", {"2", "ru"},  utils.ru_language)
-    add_choice("init", {"3", "mix"}, utils.mix_language)
+    add_choice("init", "en",  "English", utils.en_language)
+    add_choice("init", "ru",  "Russian (Русский)", utils.ru_language)
+    add_choice("init", "mix", "Mix", utils.mix_language)
 
-    add_choice("en_funcs", {"1",  "bark"}, utils.en_bark)
-    add_choice("en_funcs", {"2",  "extremeGag"}, utils.en_extremeGag)
-    add_choice("en_funcs", {"3",  "severeGag"},  utils.en_severeGag)
-    add_choice("en_funcs", {"4",  "looseGag"},   utils.en_looseGag)
-    add_choice("en_funcs", {"5",  "OwO"}, utils.en_OwOAccent)
-    add_choice("en_funcs", {"6",  "zalgo"},   utils.zalgo)
-    add_choice("en_funcs", {"7",  "lizard"},  utils.en_lizardAccent)
-    add_choice("en_funcs", {"8",  "stutter"}, utils.en_lightStutter)
-    add_choice("en_funcs", {"9",  "mildStutter"},      utils.en_mildStutter)
-    add_choice("en_funcs", {"10", "severeStutter"},    utils.en_severeStutter)
-    add_choice("en_funcs", {"11", "extremeStutter"},   utils.en_extremeStutter)
-    add_choice("en_funcs", {"12", "en_insaneStutter"}, utils.en_insaneStutter)
+    add_choice("en_funcs", "bark",       "bark accent", utils.en_bark)
+    add_choice("en_funcs", "extremeGag", "extreme gag", utils.en_extremeGag)
+    add_choice("en_funcs", "severeGag",  "severe gag",  utils.en_severeGag)
+    add_choice("en_funcs", "looseGag",   "loose gag",   utils.en_looseGag)
+    add_choice("en_funcs", "OwO",        "OwO accent",  utils.en_OwOAccent)
+    add_choice("en_funcs", "zalgo",      "zalgo",       utils.zalgo)
+    add_choice("en_funcs", "lizard",     "lizard accent", utils.en_lizardAccent)
+    add_choice("en_funcs", "stutter",        "light stutter",   utils.en_lightStutter)
+    add_choice("en_funcs", "mildStutter",    "mild stutter",    utils.en_mildStutter)
+    add_choice("en_funcs", "severeStutter",  "severe stutter",  utils.en_severeStutter)
+    add_choice("en_funcs", "extremeStutter", "extreme stutter", utils.en_extremeStutter)
+    add_choice("en_funcs", "insaneStutter",  "insane stutter",  utils.en_insaneStutter)
 
-    add_choice("ru_funcs", {"1", "bark"}, utils.ru_bark)
-    add_choice("ru_funcs", {"2", "extremeGag"}, utils.ru_extremeGag)
-    add_choice("ru_funcs", {"3", "severeGag"},  utils.ru_severeGag)
-    add_choice("ru_funcs", {"4", "looseGag"},   utils.ru_looseGag)
-    add_choice("ru_funcs", {"5", "OwO"},    utils.ru_OwOAccent)
-    add_choice("ru_funcs", {"6", "zalgo"},  utils.zalgo)
-    add_choice("en_funcs", {"7", "lizard"}, utils.ru_lizardAccent)
+    add_choice("ru_funcs", "bark", utils.ru_bark)
+    add_choice("ru_funcs", "extremeGag", "extreme gag", utils.ru_extremeGag)
+    add_choice("ru_funcs", "severeGag",  "severe gag",  utils.ru_severeGag)
+    add_choice("ru_funcs", "looseGag",   "loose gag",   utils.ru_looseGag)
+    add_choice("ru_funcs", "OwO",    "OwO акцент", utils.ru_OwOAccent)
+    add_choice("ru_funcs", "zalgo",  "zalgo",      utils.zalgo)
+    add_choice("ru_funcs", "lizard", "lizard accent", utils.ru_lizardAccent)
 
-    add_choice("mix_funcs", {"1", "bark"}, utils.mix_bark)
-    add_choice("mix_funcs", {"2", "extremeGag"}, utils.mix_extremeGag)
-    add_choice("mix_funcs", {"3", "severeGag"},  utils.mix_severeGag)
-    add_choice("mix_funcs", {"4", "looseGag"},   utils.mix_looseGag)
-    add_choice("mix_funcs", {"5", "OwO"},    utils.mix_OwOAccent)
-    add_choice("mix_funcs", {"6", "zalgo"},  utils.zalgo)
-    add_choice("mix_funcs", {"7", "lizard"}, utils.mix_lizardAccent)
+    add_choice("mix_funcs", "bark",       "bark accent", utils.mix_bark)
+    add_choice("mix_funcs", "extremeGag", "extreme gag", utils.mix_extremeGag)
+    add_choice("mix_funcs", "severeGag",  "severe gag",  utils.mix_severeGag)
+    add_choice("mix_funcs", "looseGag",   "loose gag",   utils.mix_looseGag)
+    add_choice("mix_funcs", "OwO",        "OwO accent",  utils.mix_OwOAccent)
+    add_choice("mix_funcs", "zalgo",      "zalgo",       utils.zalgo)
+    add_choice("mix_funcs", "lizard",     "ящерский акцент",  utils.mix_lizardAccent)
 end
 
 
@@ -344,7 +312,11 @@ while true do
         input = console_menu.default_input_handler(input)
     end
 
-    local choice = console_menu.choices[input]
+    local choice = console_menu.choices
+    if choice then
+        choice = choice[input]
+    end
+
     if choice then
         print()
         choice()
