@@ -114,6 +114,9 @@ function console_menu.print_choice_menu(choice_group_name)
         message[#message+1] = table.concat(message_part)
     end
 
+    if #message ~= 0 then
+        message[#message+1] = "[<] - Back"
+    end
     print(table.concat(message, "\n"))
 end
 
