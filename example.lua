@@ -1,3 +1,5 @@
+-- require("lldebugger").start()
+
 local RPstuff = require("RPstuff")
 
 
@@ -25,6 +27,22 @@ print("transform_text_funcs.ru.looseGag:"   .. RPstuff.transform_text_funcs.ru.l
 print("transform_text_funcs.ru.OwO:"        .. RPstuff.transform_text_funcs.ru.OwOAccent(text))
 print("transform_text_funcs.ru.slime:"      .. RPstuff.transform_text_funcs.ru.slime(text))
 print("transform_text_funcs.ru.wawa:"       .. RPstuff.transform_text_funcs.ru.wawa(text))
+print()
+
+text = ",,вы,, ж"
+print("Original text:" .. text)
+local changed_subjects = {
+    ["вы"]   = "ты",
+    ["вас"]  = "тебя",
+    ["вам"]  = "тебе",
+    ["вами"] = "тобой",
+}
+print("Changed subjects:" .. RPstuff.replaceWord(text, changed_subjects))
+print()
+
+text = " yes, no, damn, OooooOOootoOoO!"
+print("Original text:" .. text)
+print("transform_text_funcs.en.ScandinavianAccent:" .. RPstuff.transform_text_funcs.en.ScandinavianAccent(text))
 print()
 
 text = " help me, PLEASE!"

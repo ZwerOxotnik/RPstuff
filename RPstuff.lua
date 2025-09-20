@@ -26,7 +26,8 @@ end
 ---@param random_characters string|string[]
 ---@param percentage number? # format: x.xx (default: 1)
 ---@param ignore_characters table<string, any>|string?
-function RPstuff.ReplaceXcharacters(text, random_characters, percentage, ignore_characters)
+---@param maxSequence number?
+function RPstuff.ReplaceXcharacters(text, random_characters, percentage, ignore_characters, maxSequence)
     if percentage == nil then percentage = 1 end
 
     local splitted_text = {}
@@ -54,18 +55,29 @@ function RPstuff.ReplaceXcharacters(text, random_characters, percentage, ignore_
         random_characters = random_characters_table
     end
 
+    local consecutive_replacement = 0
     if ignore_characters then
         for i=1, #splitted_text do
             local letter = splitted_text[i]
-            if (not ignore_characters[letter] and percentage >= random()) then
+            if (not ignore_characters[letter] and percentage >= random()
+                and (maxSequence == nil or consecutive_replacement < maxSequence))
+            then
+                consecutive_replacement = consecutive_replacement + 1
                 splitted_text[i] = random_characters[random(1, #random_characters)]
+            else
+                consecutive_replacement = 0
             end
         end
     else
         for i=1, #splitted_text do
             local letter = splitted_text[i]
-            if (percentage >= random()) then
+            if ((percentage >= random())
+                and (maxSequence == nil or consecutive_replacement < maxSequence))
+            then
+                consecutive_replacement = consecutive_replacement + 1
                 splitted_text[i] = random_characters[random(1, #random_characters)]
+            else
+                consecutive_replacement = 0
             end
         end
     end
@@ -76,17 +88,25 @@ end
 
 ---@param text string
 ---@param new_characters_map table<string, string|string[]>
-function RPstuff.replaceCharacters(text, new_characters_map)
+---@param maxSequence number?
+---@param chance number? # format: x.xx (default: 1)
+function RPstuff.replaceCharacters(text, new_characters_map, maxSequence, chance)
+    if chance == nil then chance = 1 end
     local splitted_text = {}
+    local consecutive_replacement = 0
     for letter in utf8.gmatch(text, '.') do
         local _new_characters = new_characters_map[letter]
-        if (_new_characters) then
+        if (_new_characters and (chance >= random())
+            and (maxSequence == nil or consecutive_replacement < maxSequence))
+        then
+            consecutive_replacement = consecutive_replacement + 1
             if type(_new_characters) == "string" then
                 splitted_text[#splitted_text+1] = _new_characters
             else
                 splitted_text[#splitted_text+1] = _new_characters[random(1, #_new_characters)]
             end
         else
+            consecutive_replacement = 0
             splitted_text[#splitted_text+1] = letter
         end
     end
@@ -235,7 +255,7 @@ function RPstuff.textWrap(text, limit, indent, indentFirst, doKeepSpaceFormat)
 
     if not doKeepSpaceFormat then
         local here = 1 - #indentFirst
-        return indentFirst .. text:gsub( "(%s+)()(%S+)()",
+        return indentFirst .. text:gsub("(%s+)()(%S+)()",
             function( sp, st, word, fi )
                 if fi - here > limit then
                     here = st - #indent
@@ -301,16 +321,6 @@ function RPstuff.titleCase(text)
         end
     )
 end
-
-
-local changed_subjects = {
-    ["вы"]   = "ты",
-    ["вас"]  = "тебя",
-    ["вам"]  = "тебе",
-    ["вами"] = "тобой",
-}
-RPstuff.replaceWord(",,вы,, ж", changed_subjects)
-
 
 ---# Checks if the string consists of whitespace characters.
 ---@param text string
@@ -453,6 +463,68 @@ function RPstuff.transform_text_funcs.en.OwOAccent(text)
         ["fuck"] = "feck", ["Fuck"] = "Feck", ["FUCK"] = "FECK",
         ["fucking"] = "fecking", ["Fucking"] = "Fecking", ["FUCKING"] = "FECKING",
     });
+end
+
+---@param text string
+function RPstuff.transform_text_funcs.en.ScandinavianAccent(text)
+    -- WARNING: I have no idea how it's close to the point
+    -- TODO: replace "thank you" to "takk"
+    -- TODO: replace "oh my god" to "herregud"
+    -- TODO: replace "oh my lord" to "herregud"
+    local new_text = RPstuff.replaceWord(text, {
+        ["yes"] = "ja", ["yea"] = "ja", 
+        ["no"] = "nej",
+        ["hell"] = "helvete",
+        ["shit"] = "skit",
+        ["damn"] = "jävla",
+        ["hello"] = "hej", ["hi"] = "hej",
+        ["goodbye"] = "ha det",
+        ["bye"] = "farvel",
+        ["bye-bye"] = "adjø",
+        ["music"] = "musik",
+        ["thanks"] = "tack",
+        ["dumb"] = "dum",
+        ["and"] = "og",
+        ["north"] = "nord",
+        ["south"] = "syd",
+        ["east"] = "øst",
+        ["coffee"] = "kaffi",
+        ["lemon"] = "citron",
+        ["lemons"] = "citroner",
+        ["fish"] = "fisk",
+        ["shark"] = "hakarl",
+        ["sharks"] = "hakarlar",
+        ["bread"] = "brød",
+        ["spider"] = "spindel",
+        ["spiders"] = "spindlar",
+        ["dwarf"] = "dvärg",
+        ["dwarves"] = "dvärgar",
+        ["fuck"] = "bork",
+        ["fucked"] = "borked",
+        ["fucking"] = "borking",
+        ["pig"] = "svin",
+        ["pigs"] = "svin",
+        ["snake"] = "slange",
+        ["snakes"] = "slangar",
+        ["dragon"] = "drake",
+        ["dragons"] = "drakar",
+        ["egg"] = "ägg",
+        ["eggs"] = "äggen",
+    })
+    
+    new_text = RPstuff.replaceCharacters(new_text, {
+        ["W"] = "V",
+        ["w"] = "v",
+        ["J"] = "Y",
+        ["j"] = "y",
+    })
+
+    return RPstuff.replaceCharacters(new_text, {
+        ["A"] = {"Å", "Ä", "Æ"},
+        ["a"] = {"å", "ä", "æ"},
+        ["O"] = {"Ö", "Ø"},
+        ["o"] = {"ö", "ø"},
+    }, 4, 0.5)
 end
 
 ---@param text string

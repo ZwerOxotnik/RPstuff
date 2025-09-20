@@ -1,3 +1,5 @@
+-- require("lldebugger").start()
+
 local console_menu = require("console_menu")
 local RPstuff = require("RPstuff")
 
@@ -125,6 +127,14 @@ function console_menu.utils.en_lizardAccent()
     console_menu.add_handler(console_menu.all_handlers.require_input, function(input)
         if input == "<" then return input end
         print((RPstuff.transform_text_funcs.en.lizardAccent(input)))
+        return ""
+    end)
+end
+
+function console_menu.utils.en_ScandinavianAccent()
+    console_menu.add_handler(console_menu.all_handlers.require_input, function(input)
+        if input == "<" then return input end
+        print((RPstuff.transform_text_funcs.en.ScandinavianAccent(input)))
         return ""
     end)
 end
@@ -269,13 +279,14 @@ do
     add_choice("init", "ru",  "Russian (Русский)", utils.ru_language)
     add_choice("init", "mix", "Mix", utils.mix_language)
 
-    add_choice("en_funcs", "bark",       "bark accent", utils.en_bark)
-    add_choice("en_funcs", "extremeGag", "extreme gag", utils.en_extremeGag)
-    add_choice("en_funcs", "severeGag",  "severe gag",  utils.en_severeGag)
-    add_choice("en_funcs", "looseGag",   "loose gag",   utils.en_looseGag)
-    add_choice("en_funcs", "OwO",        "OwO accent",  utils.en_OwOAccent)
-    add_choice("en_funcs", "zalgo",      "zalgo",       utils.zalgo)
+    add_choice("en_funcs", "bark",       "bark accent",   utils.en_bark)
+    add_choice("en_funcs", "extremeGag", "extreme gag",   utils.en_extremeGag)
+    add_choice("en_funcs", "severeGag",  "severe gag",    utils.en_severeGag)
+    add_choice("en_funcs", "looseGag",   "loose gag",     utils.en_looseGag)
+    add_choice("en_funcs", "OwO",        "OwO accent",    utils.en_OwOAccent)
+    add_choice("en_funcs", "zalgo",      "zalgo",         utils.zalgo)
     add_choice("en_funcs", "lizard",     "lizard accent", utils.en_lizardAccent)
+    add_choice("en_funcs", "scandinavian",     "scandinavian accent", utils.en_ScandinavianAccent)
     add_choice("en_funcs", "stutter",        "light stutter",   utils.en_lightStutter)
     add_choice("en_funcs", "mildStutter",    "mild stutter",    utils.en_mildStutter)
     add_choice("en_funcs", "severeStutter",  "severe stutter",  utils.en_severeStutter)
