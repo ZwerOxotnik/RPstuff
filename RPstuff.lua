@@ -664,5 +664,58 @@ function RPstuff.transform_text_funcs.ru.lizardAccent(text)
     })
 end
 
+-- Returns the Levenshtein distance between the two given strings
+---@param str1 str1ng
+---@param str2 str1ng
+function RPstuff.levenshtein(str1, str2)
+	local len1 = string.len(str1)
+	local len2 = string.len(str2)
+	local matrix = {nil}
+	local cost = 0
+    local SByte = string.byte
+	
+    -- quick cut-offs to save time
+	if (len1 == 0) then
+		return len2
+	elseif (len2 == 0) then
+		return len1
+	elseif (str1 == str2) then
+		return 0
+	end
+	
+    -- initialise the base matrix values
+	for i = 0, len1, 1 do
+		matrix[i] = {nil, nil, nil}
+		matrix[i][0] = i
+	end
+	for j = 0, len2, 1 do
+		matrix[0][j] = j
+	end
+	
+    -- actual Levenshtein algorithm
+	for i = 1, len1, 1 do
+		for j = 1, len2, 1 do
+			if (SByte(str1, i) == SByte(str2, j)) then
+				cost = 0
+			else
+				cost = 1
+			end
+			
+            local current_row = matrix[i]
+            local prev_row = matrix[i-1]
+            local v1 = current_row[j-1] + 1
+            local v2 = prev_row[j-1] + cost
+            if v1 < v2 then
+                current_row[j] = v1
+            else
+                current_row[j] = v2
+            end
+		end
+	end
+	
+    -- return the last value - this is the Levenshtein distance
+	return matrix[len1][len2]
+end
+
 
 return RPstuff
