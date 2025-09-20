@@ -664,17 +664,16 @@ function RPstuff.transform_text_funcs.ru.lizardAccent(text)
     })
 end
 
--- TODO: check and fix with UTF8
 -- Returns the Levenshtein distance between the two given strings
 ---@param str1 string
 ---@param str2 string
 ---@return number
 function RPstuff.levenshtein(str1, str2)
-	local len1 = string.len(str1)
-	local len2 = string.len(str2)
+	local len1 = utf8.len(str1)
+	local len2 = utf8.len(str2)
 	local matrix = {nil}
 	local cost = 0
-    local SByte = string.byte
+    local SByte = utf8.byte
 	
     -- quick cut-offs to save time
 	if (len1 == 0) then
