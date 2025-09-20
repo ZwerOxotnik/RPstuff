@@ -665,8 +665,9 @@ function RPstuff.transform_text_funcs.ru.lizardAccent(text)
 end
 
 -- Returns the Levenshtein distance between the two given strings
----@param str1 str1ng
----@param str2 str1ng
+---@param str1 string
+---@param str2 string
+---@return number
 function RPstuff.levenshtein(str1, str2)
 	local len1 = string.len(str1)
 	local len2 = string.len(str2)
