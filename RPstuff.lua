@@ -664,6 +664,7 @@ function RPstuff.transform_text_funcs.ru.lizardAccent(text)
     })
 end
 
+-- TODO: check and fix with UTF8
 -- Returns the Levenshtein distance between the two given strings
 ---@param str1 string
 ---@param str2 string
