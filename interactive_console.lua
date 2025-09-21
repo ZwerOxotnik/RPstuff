@@ -131,6 +131,14 @@ function console_menu.utils.en_lizardAccent()
     end)
 end
 
+function console_menu.utils.en_RussianAccent()
+    console_menu.add_handler(console_menu.all_handlers.require_input, function(input)
+        if input == "<" then return input end
+        print((RPstuff.transform_text_funcs.en.RussianAccent(input)))
+        return ""
+    end)
+end
+
 function console_menu.utils.en_ScandinavianAccent()
     console_menu.add_handler(console_menu.all_handlers.require_input, function(input)
         if input == "<" then return input end
@@ -287,6 +295,7 @@ do
     add_choice("en_funcs", "zalgo",      "zalgo",         utils.zalgo)
     add_choice("en_funcs", "lizard",     "lizard accent", utils.en_lizardAccent)
     add_choice("en_funcs", "scandinavian",     "scandinavian accent", utils.en_ScandinavianAccent)
+    add_choice("en_funcs", "russian",        "Russian accent",  utils.en_RussianAccent)
     add_choice("en_funcs", "stutter",        "light stutter",   utils.en_lightStutter)
     add_choice("en_funcs", "mildStutter",    "mild stutter",    utils.en_mildStutter)
     add_choice("en_funcs", "severeStutter",  "severe stutter",  utils.en_severeStutter)

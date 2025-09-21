@@ -45,6 +45,11 @@ print("Original text:" .. text)
 print("transform_text_funcs.en.ScandinavianAccent:" .. RPstuff.transform_text_funcs.en.ScandinavianAccent(text))
 print()
 
+text = "yes, grandma! I did bring some pancakes for you"
+print("Original text:" .. text)
+print("transform_text_funcs.en.RussianAccent:" .. RPstuff.transform_text_funcs.en.RussianAccent(text))
+print()
+
 text = " help me, PLEASE!"
 print("Original text:" .. text)
 print("transform_text_funcs.en.barkAccent:" .. RPstuff.transform_text_funcs.en.barkAccent(text))

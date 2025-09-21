@@ -466,6 +466,7 @@ function RPstuff.transform_text_funcs.en.OwOAccent(text)
 end
 
 ---@param text string
+---@return string
 function RPstuff.transform_text_funcs.en.ScandinavianAccent(text)
     -- WARNING: I have no idea how it's close to the point
     -- TODO: replace "thank you" to "takk"
@@ -528,6 +529,38 @@ function RPstuff.transform_text_funcs.en.ScandinavianAccent(text)
 end
 
 ---@param text string
+---@return string
+function RPstuff.transform_text_funcs.en.RussianAccent(text)
+    local new_text = RPstuff.replaceWord(text, {
+        ["yes"] = "da",
+        ["no"] = "nyet",
+        ["grandma"] = "babushka",
+        ["grandmother"] = "babushka",
+        ["granny"] = "babushka",
+        ["friend"] = "comrade",
+        ["friends"] = "comrades",
+        ["cheers"] = "na zdorovje",
+    })
+
+    new_text = RPstuff.replaceCharacters(new_text, {
+        ["b"] = "в",
+        ["N"] = "и",
+        ["K"] = "К",
+        ["k"] = "к",
+        ["m"] = "м",
+        ["h"] = "н",
+        ["R"] = "Я",
+        ["r"] = "я",
+        ["Y"] = "У",
+        ["W"] = "Ш",
+        ["w"] = "ш",
+    })
+
+    return new_text
+end
+
+---@param text string
+---@return string
 function RPstuff.transform_text_funcs.ru.OwOAccent(text)
     local new_text = {}
     local faces = {
