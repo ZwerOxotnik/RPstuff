@@ -28,6 +28,11 @@ end
 ---@param ignore_characters table<string, any>|string?
 ---@param maxSequence number?
 function RPstuff.ReplaceXcharacters(text, random_characters, percentage, ignore_characters, maxSequence)
+    if random_characters == nil then
+        return text
+    elseif random_characters ~= nil and #random_characters == 0 then
+        return text
+    end
     if percentage == nil then percentage = 1 end
 
     local splitted_text = {}
@@ -45,9 +50,7 @@ function RPstuff.ReplaceXcharacters(text, random_characters, percentage, ignore_
     end
 
     -- string to table (Perhaps it could be done faster for this function)
-    if random_characters ~= nil and #random_characters == 0 then
-        return text
-    elseif type(random_characters) == "string" then
+    if type(random_characters) == "string" then
         local random_characters_table = {}
         for l in utf8.gmatch(random_characters, '.') do
             random_characters_table[#random_characters_table+1] = l
@@ -473,7 +476,7 @@ function RPstuff.transform_text_funcs.en.ScandinavianAccent(text)
     -- TODO: replace "oh my god" to "herregud"
     -- TODO: replace "oh my lord" to "herregud"
     local new_text = RPstuff.replaceWord(text, {
-        ["yes"] = "ja", ["yea"] = "ja", 
+        ["yes"] = "ja", ["yea"] = "ja",
         ["no"] = "nej",
         ["hell"] = "helvete",
         ["shit"] = "skit",
@@ -512,7 +515,7 @@ function RPstuff.transform_text_funcs.en.ScandinavianAccent(text)
         ["egg"] = "ägg",
         ["eggs"] = "äggen",
     })
-    
+
     new_text = RPstuff.replaceCharacters(new_text, {
         ["W"] = "V",
         ["w"] = "v",
@@ -707,7 +710,7 @@ function RPstuff.levenshtein(str1, str2)
 	local matrix = {nil}
 	local cost = 0
     local SByte = utf8.byte
-	
+
     -- quick cut-offs to save time
 	if (len1 == 0) then
 		return len2
@@ -716,7 +719,7 @@ function RPstuff.levenshtein(str1, str2)
 	elseif (str1 == str2) then
 		return 0
 	end
-	
+
     -- initialise the base matrix values
 	for i = 0, len1, 1 do
 		matrix[i] = {nil, nil, nil}
@@ -725,7 +728,7 @@ function RPstuff.levenshtein(str1, str2)
 	for j = 0, len2, 1 do
 		matrix[0][j] = j
 	end
-	
+
     -- actual Levenshtein algorithm
 	for i = 1, len1, 1 do
 		for j = 1, len2, 1 do
@@ -734,7 +737,7 @@ function RPstuff.levenshtein(str1, str2)
 			else
 				cost = 1
 			end
-			
+
             local current_row = matrix[i]
             local prev_row = matrix[i-1]
             local v1 = current_row[j-1] + 1
@@ -746,7 +749,7 @@ function RPstuff.levenshtein(str1, str2)
             end
 		end
 	end
-	
+
     -- return the last value - this is the Levenshtein distance
 	return matrix[len1][len2]
 end
