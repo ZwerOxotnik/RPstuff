@@ -395,6 +395,7 @@ function RPstuff.replaceWordsWithFunc(text, f, ...)
     return table.concat(new_text)
 end
 
+-- TODO: extend to other functions or improve
 ---@param text string
 ---@param UpMaxLimit integer
 ---@param UpMinLimit integer? # Default: 1
@@ -599,6 +600,7 @@ function RPstuff.transform_text_funcs.ru.OwOAccent(text)
     end
 
     new_text = table.concat(new_text);
+    -- TODO: change swearing to random "words"
     return RPstuff.replaceWord(new_text, {
         ["ах"] = "арф", ["Ах"] = "Арф",
         ["блядь"] = "мяя", ["Блядь"] = "Мяя", ["БЛЯДЬ"] = "МЯЯ!",
