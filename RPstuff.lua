@@ -700,6 +700,46 @@ function RPstuff.transform_text_funcs.ru.lizardAccent(text)
     })
 end
 
+
+---@param str string?
+---@param chance number? # format: x.xx (default: 1)
+---@return string
+function RPstuff.swap_near_characters(str, chance)
+    if str == nil then
+        return ""
+    end
+    chance = chance or 1
+
+    local new_splitted_text = {nil}
+    local prev_letter = nil
+    for letter in utf8.gmatch(str, '.') do
+        if letter:match("%s") == nil then
+            if prev_letter then
+                new_splitted_text[#new_splitted_text+1] = letter
+                new_splitted_text[#new_splitted_text+1] = prev_letter
+                prev_letter = nil
+            elseif chance >= random() then
+                prev_letter = letter
+            else
+                new_splitted_text[#new_splitted_text+1] = letter
+            end
+        elseif prev_letter then
+            new_splitted_text[#new_splitted_text+1] = prev_letter
+            new_splitted_text[#new_splitted_text+1] = letter
+            prev_letter = nil
+        else
+            new_splitted_text[#new_splitted_text+1] = letter
+        end
+    end
+
+    if prev_letter then
+        new_splitted_text[#new_splitted_text+1] = prev_letter
+    end
+
+    return table.concat(new_splitted_text)
+end
+
+
 -- Returns the Levenshtein distance between the two given strings
 ---@param str1 string
 ---@param str2 string

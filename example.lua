@@ -84,5 +84,10 @@ print()
 
 text = "test  😁"
 print("Original text:" .. text)
-print(RPstuff.stripNonStandardCharacters("test  😁"))
+print(RPstuff.stripNonStandardCharacters(text))
+print()
+
+text = "test test test test"
+print("Original text:" .. text)
+print(RPstuff.swap_near_characters(text, 0.5))
 print()
