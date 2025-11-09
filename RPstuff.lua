@@ -46,7 +46,7 @@ function RPstuff.ReplaceXcharacters(text, random_characters, percentage, ignore_
 
     -- string to table (Perhaps it could be done faster for this function)
     if random_characters ~= nil and #random_characters == 0 then
-        random_characters = nil
+        return text
     elseif type(random_characters) == "string" then
         local random_characters_table = {}
         for l in utf8.gmatch(random_characters, '.') do
