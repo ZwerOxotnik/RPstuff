@@ -158,7 +158,11 @@ function RPstuff.replaceWord(text, words_map)
             end
 
             local word = string.sub(sliced_text, wi, wli)
-            local new_word = words_map[word] or word
+            local new_word = words_map[word]
+            if new_word == nil then
+                local lc_word = utf8.lower(word) -- One day it'll work...
+                new_word = words_map[lc_word] or word
+            end
             new_text[#new_text+1] = new_word
 
             prev_wli = wli
