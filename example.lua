@@ -99,5 +99,5 @@ print()
 
 text = "test-test test. 12345678901234567890"
 print("Original text:" .. text)
-print("obsufate_text:" .. RPstuff.obsufate_text(text, 0.2))
+print("obfuscate_text:" .. RPstuff.obfuscate_text(text, 0.2))
 print()

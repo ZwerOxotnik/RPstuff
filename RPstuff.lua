@@ -709,7 +709,7 @@ end
 ---@param text string?
 ---@param percentage number? # format: x.xx (default: 0.5)
 ---@return string
-function RPstuff.obsufate_text(text, percentage)
+function RPstuff.obfuscate_text(text, percentage)
     if text == nil then
         return ""
     end
