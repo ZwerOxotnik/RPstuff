@@ -27,7 +27,7 @@ end
 ---@param percentage number? # format: x.xx (default: 1)
 ---@param ignore_characters table<string, any>|string?
 ---@param maxSequence number?
-function RPstuff.ReplaceXcharacters(text, random_characters, percentage, ignore_characters, maxSequence)
+function RPstuff.replaceXcharacters(text, random_characters, percentage, ignore_characters, maxSequence)
     if random_characters == nil then
         return text
     elseif random_characters ~= nil and #random_characters == 0 then
@@ -715,7 +715,7 @@ function RPstuff.obsufate_text(text, percentage)
     end
     percentage = percentage or 0.5
 
-    local new_text = RPstuff.ReplaceXcharacters(text, " ", percentage)
+    local new_text = RPstuff.replaceXcharacters(text, " ", percentage)
     new_text = RPstuff.swap_near_characters(new_text, percentage * 0.9)
 
     -- Replaces multiple spaces with single space

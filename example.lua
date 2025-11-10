@@ -94,7 +94,7 @@ print()
 
 text = "test test test teeeeeeeeeeeest"
 print("Original text:" .. text)
-print("ReplaceXcharacters:" .. RPstuff.ReplaceXcharacters(text, "#", 0.45, "t", 3))
+print("ReplaceXcharacters:" .. RPstuff.replaceXcharacters(text, "#", 0.45, "t", 3))
 print()
 
 text = "test-test test. 12345678901234567890"
