@@ -706,6 +706,23 @@ function RPstuff.transform_text_funcs.ru.lizardAccent(text)
     })
 end
 
+---@param text string?
+---@param percentage number? # format: x.xx (default: 0.5)
+---@return string
+function RPstuff.obsufate_text(text, percentage)
+    if text == nil then
+        return ""
+    end
+    percentage = percentage or 0.5
+
+    local new_text = RPstuff.ReplaceXcharacters(text, " ", percentage)
+    new_text = RPstuff.swap_near_characters(new_text, percentage * 0.9)
+
+    -- Replaces multiple spaces with single space
+    new_text = new_text:gsub("%s+", " ")
+
+    return new_text
+end
 
 ---@param str string?
 ---@param chance number? # format: x.xx (default: 1)
@@ -744,7 +761,6 @@ function RPstuff.swap_near_characters(str, chance)
 
     return table.concat(new_splitted_text)
 end
-
 
 -- Returns the Levenshtein distance between the two given strings
 ---@param str1 string
