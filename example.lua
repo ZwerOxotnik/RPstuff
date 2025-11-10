@@ -84,15 +84,15 @@ print()
 
 text = "test  😁"
 print("Original text:" .. text)
-print(RPstuff.stripNonStandardCharacters(text))
+print("stripNonStandardCharacters:" .. RPstuff.stripNonStandardCharacters(text))
 print()
 
 text = "test test test test"
 print("Original text:" .. text)
-print(RPstuff.swap_near_characters(text, 0.5))
+print("swap_near_characters:" .. RPstuff.swap_near_characters(text, 0.5))
 print()
 
 text = "test test test teeeeeeeeeeeest"
 print("Original text:" .. text)
-print(RPstuff.ReplaceXcharacters(text, "#", 0.45, "t", 3))
+print("ReplaceXcharacters:" .. RPstuff.ReplaceXcharacters(text, "#", 0.45, "t", 3))
 print()
