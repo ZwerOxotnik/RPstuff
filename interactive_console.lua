@@ -2,40 +2,62 @@
 
 local console_menu = require("console_menu")
 local RPstuff = require("RPstuff")
+local ANSI_ESCAPE_CODES = require("ANSI_escape_codes")
+local RESPONSES = {
+    ru = {},
+    en = {},
+}
+
+
+---@param text string?
+---@param color string?
+---@return string
+local function make_response(text, color)
+    text = (text and ANSI_ESCAPE_CODES.bold .. text) or ""
+    color = color or ANSI_ESCAPE_CODES.blue
+    return color .. text .. ANSI_ESCAPE_CODES.clear
+end
+
+RESPONSES.en.input = make_response("Input:")
+RESPONSES.ru.input = make_response("Input:")
+RESPONSES.en.language = make_response("Language: ")
+RESPONSES.ru.language = make_response("Language: ")
+RESPONSES.en.func = make_response("Function: ")
+RESPONSES.ru.func = make_response("Function: ")
 
 
 function console_menu.all_handlers.require_input()
     console_menu.choices = nil
-    io.write("Input: ")
+    io.write(RESPONSES.en.input)
 end
 
 function console_menu.all_handlers.require_ru_input()
     console_menu.choices = nil
-    io.write("Input: ")
+    io.write(RESPONSES.ru.input)
 end
 
 function console_menu.all_handlers.init()
     console_menu.choices = console_menu.all_choices.init
     console_menu.print_choice_menu("init")
-    io.write("Language: ")
+    io.write(RESPONSES.en.language)
 end
 
 function console_menu.all_handlers.en_funcs()
     console_menu.choices = console_menu.all_choices.en_funcs
     console_menu.print_choice_menu("en_funcs")
-    io.write("Function: ")
+    io.write(RESPONSES.en.func)
 end
 
 function console_menu.all_handlers.ru_funcs()
     console_menu.choices = console_menu.all_choices.ru_funcs
     console_menu.print_choice_menu("ru_funcs")
-    io.write("Функция: ")
+    io.write(RESPONSES.ru.func)
 end
 
 function console_menu.all_handlers.mix_funcs()
     console_menu.choices = console_menu.all_choices.mix_funcs
     console_menu.print_choice_menu("mix_funcs")
-    io.write("Function: ")
+    io.write(RESPONSES.en.func)
 end
 
 
@@ -294,7 +316,7 @@ do
     add_choice("en_funcs", "OwO",        "OwO accent",    utils.en_OwOAccent)
     add_choice("en_funcs", "zalgo",      "zalgo",         utils.zalgo)
     add_choice("en_funcs", "lizard",     "lizard accent", utils.en_lizardAccent)
-    add_choice("en_funcs", "scandinavian",     "scandinavian accent", utils.en_ScandinavianAccent)
+    add_choice("en_funcs", "scandinavian",   "scandinavian accent", utils.en_ScandinavianAccent)
     add_choice("en_funcs", "russian",        "Russian accent",  utils.en_RussianAccent)
     add_choice("en_funcs", "stutter",        "light stutter",   utils.en_lightStutter)
     add_choice("en_funcs", "mildStutter",    "mild stutter",    utils.en_mildStutter)
@@ -302,13 +324,13 @@ do
     add_choice("en_funcs", "extremeStutter", "extreme stutter", utils.en_extremeStutter)
     add_choice("en_funcs", "insaneStutter",  "insane stutter",  utils.en_insaneStutter)
 
-    add_choice("ru_funcs", "bark", utils.ru_bark)
+    add_choice("ru_funcs", "bark", "лай", utils.ru_bark)
     add_choice("ru_funcs", "extremeGag", "extreme gag", utils.ru_extremeGag)
     add_choice("ru_funcs", "severeGag",  "severe gag",  utils.ru_severeGag)
     add_choice("ru_funcs", "looseGag",   "loose gag",   utils.ru_looseGag)
     add_choice("ru_funcs", "OwO",    "OwO акцент", utils.ru_OwOAccent)
     add_choice("ru_funcs", "zalgo",  "zalgo",      utils.zalgo)
-    add_choice("ru_funcs", "lizard", "lizard accent", utils.ru_lizardAccent)
+    add_choice("ru_funcs", "lizard", "ящерский акцент", utils.ru_lizardAccent)
 
     add_choice("mix_funcs", "bark",       "bark accent", utils.mix_bark)
     add_choice("mix_funcs", "extremeGag", "extreme gag", utils.mix_extremeGag)
@@ -316,7 +338,7 @@ do
     add_choice("mix_funcs", "looseGag",   "loose gag",   utils.mix_looseGag)
     add_choice("mix_funcs", "OwO",        "OwO accent",  utils.mix_OwOAccent)
     add_choice("mix_funcs", "zalgo",      "zalgo",       utils.zalgo)
-    add_choice("mix_funcs", "lizard",     "ящерский акцент",  utils.mix_lizardAccent)
+    add_choice("mix_funcs", "lizard",     "lizard accent",  utils.mix_lizardAccent)
 end
 
 

@@ -1,4 +1,5 @@
 local utf8 = require('utf8/init'):init()
+local ANSI_ESCAPE_CODES = require("ANSI_escape_codes")
 local lower = utf8.lower
 
 
@@ -93,6 +94,8 @@ function console_menu.print_choice_menu(choice_group_name)
                     message_part[#message_part+1] = choice_name
                 else
                     if tonumber(choice_name) then
+                        message_part[#message_part+1] = ANSI_ESCAPE_CODES.blue
+                        message_part[#message_part+1] = ANSI_ESCAPE_CODES.bold
                         message_part[#message_part+1] = "["
                         message_part[#message_part+1] = choice_name
                         number = tonumber(choice_name)
@@ -102,20 +105,28 @@ function console_menu.print_choice_menu(choice_group_name)
                 end
             end
         end
-        
-        for i=1, #reserve_names do
+
+        for _=1, #reserve_names do
             message_part[#message_part+1] = "|"
             message_part[#message_part+1] = reserve_names[i]
         end
         if #message_part ~= 0 then
-            message_part[#message_part+1] = "] - "
+            message_part[#message_part+1] = "]"
+            message_part[#message_part+1] = ANSI_ESCAPE_CODES.clear
+            message_part[#message_part+1] = " - "
             message_part[#message_part+1] = choice_descriptions[i]
         end
         message[#message+1] = table.concat(message_part)
     end
 
     if #message ~= 0 then
-        message[#message+1] = "[<] - Back"
+        local message_part = {}
+        message_part[#message_part+1] = ANSI_ESCAPE_CODES.blue
+        message_part[#message_part+1] = ANSI_ESCAPE_CODES.bold
+        message_part[#message_part+1] = "[<]"
+        message_part[#message_part+1] = ANSI_ESCAPE_CODES.clear
+        message_part[#message_part+1] = " - Back"
+        message[#message+1] = table.concat(message_part)
     end
     print(table.concat(message, "\n"))
 end
