@@ -128,7 +128,10 @@ function console_menu.print_choice_menu(choice_group_name)
         message_part[#message_part+1] = " - Back"
         message[#message+1] = table.concat(message_part)
     end
+
+    local lines_count = #message + 1
     print(table.concat(message, "\n"))
+    return lines_count
 end
 
 

@@ -7,6 +7,7 @@ local RESPONSES = {
     ru = {},
     en = {},
 }
+local last_reply_lines_count = 0
 
 
 ---@param text string?
@@ -38,25 +39,25 @@ end
 
 function console_menu.all_handlers.init()
     console_menu.choices = console_menu.all_choices.init
-    console_menu.print_choice_menu("init")
+    last_reply_lines_count = console_menu.print_choice_menu("init")
     io.write(RESPONSES.en.language)
 end
 
 function console_menu.all_handlers.en_funcs()
     console_menu.choices = console_menu.all_choices.en_funcs
-    console_menu.print_choice_menu("en_funcs")
+    last_reply_lines_count = console_menu.print_choice_menu("en_funcs")
     io.write(RESPONSES.en.func)
 end
 
 function console_menu.all_handlers.ru_funcs()
     console_menu.choices = console_menu.all_choices.ru_funcs
-    console_menu.print_choice_menu("ru_funcs")
+    last_reply_lines_count = console_menu.print_choice_menu("ru_funcs")
     io.write(RESPONSES.ru.func)
 end
 
 function console_menu.all_handlers.mix_funcs()
     console_menu.choices = console_menu.all_choices.mix_funcs
-    console_menu.print_choice_menu("mix_funcs")
+    last_reply_lines_count = console_menu.print_choice_menu("mix_funcs")
     io.write(RESPONSES.en.func)
 end
 
@@ -360,7 +361,14 @@ while true do
     end
 
     if choice then
-        print()
+        if last_reply_lines_count > 0 then
+            if io then
+                -- https://en.wikipedia.org/wiki/ANSI_escape_code
+                -- cursor up, then clear after cursor and then save the cursor position
+                io.write("\027[" .. last_reply_lines_count .. "A" .. "\027[0J" .. "\027[s")
+            end
+            last_reply_lines_count = 0
+        end
         choice()
     elseif console_menu.alternative_handler then
         console_menu.alternative_handler()
