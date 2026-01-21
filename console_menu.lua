@@ -106,9 +106,9 @@ function console_menu.print_choice_menu(choice_group_name)
             end
         end
 
-        for _=1, #reserve_names do
+        for i2=1, #reserve_names do
             message_part[#message_part+1] = "|"
-            message_part[#message_part+1] = reserve_names[i]
+            message_part[#message_part+1] = reserve_names[i2]
         end
         if #message_part ~= 0 then
             message_part[#message_part+1] = "]"
